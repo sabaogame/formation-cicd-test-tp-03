@@ -39,6 +39,14 @@ jobs:
           tail -n 200 app.log || true
           exit 1
 
+      - name: Run API tests (Hurl via Docker)
+        run: |
+          docker run --rm \
+            --add-host=host.docker.internal:host-gateway \
+            -v ${{ github.workspace }}:/work \
+            ghcr.io/orange-opensource/hurl:latest \
+            --test /work/src/test/java/api
+
       - name: Stop app
         if: always()
         run: |
