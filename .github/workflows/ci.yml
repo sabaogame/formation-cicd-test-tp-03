@@ -28,6 +28,6 @@ jobs:
       - name: Stop app
         if: always()
         run: |
-          if [ -f app.pid]; then
+          if [ -f app.pid ]; then
             kill $(cat app.pid) && echo "App stopped" || echo "Process already stopped"
           fi
