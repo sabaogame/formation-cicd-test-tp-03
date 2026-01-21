@@ -39,6 +39,9 @@ jobs:
           tail -n 200 app.log || true
           exit 1
 
+      - name: Prepare API test reports directory
+        run: mkdir -p api-test-reports
+
       - name: Run API tests (Hurl via Docker)
         run: |
           docker run --rm \
@@ -46,6 +49,9 @@ jobs:
             -v ${{ github.workspace }}:/work \
             ghcr.io/orange-opensource/hurl:latest \
             --test /work/src/test/java/api
+            --report-junit /work/api-test-reports/junit.xml \
+            --report-html /work/api-test-reports/report.html \
+            --report-json /work/api-test-reports/report.json \ 
 
       - name: Stop app
         if: always()
