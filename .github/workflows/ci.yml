@@ -59,3 +59,9 @@ jobs:
           if [ -f app.pid ]; then
             kill $(cat app.pid) && echo "App stopped" || echo "Process already stopped"
           fi
+
+      - name: Upload Hurl Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: hurl-reports
+          path: api-test-reports/
