@@ -48,10 +48,10 @@ jobs:
             --add-host=host.docker.internal:host-gateway \
             -v ${{ github.workspace }}:/work \
             ghcr.io/orange-opensource/hurl:latest \
-            --test /work/src/test/java/api
+            --test /work/src/test/java/api \
             --report-junit /work/api-test-reports/junit.xml \
             --report-html /work/api-test-reports/report.html \
-            --report-json /work/api-test-reports/report.json \ 
+            --report-json /work/api-test-reports/report.json
 
       - name: Stop app
         if: always()
