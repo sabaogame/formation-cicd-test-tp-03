@@ -25,6 +25,20 @@ jobs:
           java -jar target/formation-cicd-test-tp-03-solution-1.0-SNAPSHOT.jar > app.log 2>&1 &
           echo $! > app.pid
 
+      - name: Wait for API to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -sSf http://localhost:8080/health > /dev/null; then
+              echo "API is up!"
+              exit 0
+            fi
+            echo "Waiting API..."
+            sleep 2
+          done
+          echo "API not ready"
+          tail -n 200 app.log || true
+          exit 1
+
       - name: Stop app
         if: always()
         run: |
