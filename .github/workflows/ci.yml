@@ -22,7 +22,7 @@ jobs:
 
       - name: Start app
         run: |
-          java -jar target/formation-cicd-test-tp-03-solution-1.0-SNAPSHOT.jar > app.log 2>&1 &
+          java -jar target/formation-cicd-test-tp-03-1.0-SNAPSHOT.jar > app.log 2>&1 &
           echo $! > app.pid
 
       - name: Wait for API to be ready
