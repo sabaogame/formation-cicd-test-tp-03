@@ -19,3 +19,15 @@ jobs:
       - name: Package
         run: |
           mvn -q clean package
+
+      - name: Start app
+        run: |
+          java -jar target/formation-cicd-test-tp-03-solution-1.0-SNAPSHOT.jar > app.log 2>&1 &
+          echo $! > app.pid
+
+      - name: Stop app
+        if: always()
+        run: |
+          if [ -f app.pid]; then
+            kill $(cat app.pid) && echo "App stopped" || echo "Process already stopped"
+          fi
